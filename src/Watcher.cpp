@@ -1,18 +1,11 @@
 #include "Watcher.h"
-#include "iostream"
-#include "chrono"
+#include <chrono>
 #include <filesystem>
 #include <thread>
 
 cwatch::Watcher::Watcher(std::string inputFilePath) : inputFilePath{ inputFilePath } {
 	std::filesystem::path filepath = std::filesystem::path(inputFilePath);
-	if (std::filesystem::exists(filepath)) {
-		std::cout << "Watcher initialized" << std::endl;
-	}
-	else {
-		std::cout << "Watcher initialization failed: No file found at path " << filepath << std::endl;
-		throw "Initialization exception";
-	}
+	logger::assert(std::filesystem::exists(filepath), "Watcher initialization failed: File not found at path " + filepath.u8string());
 }
 
 void cwatch::Watcher::start() {
@@ -31,7 +24,7 @@ void cwatch::Watcher::start() {
 		std::this_thread::sleep_for(pauseDuration);
 		auto currentModifiedTime = std::filesystem::last_write_time(filepath);
 		if (currentModifiedTime != lastModifiedTime) {
-			std::cout << "Modified!!!" << std::endl;
+			logger::log(logger::LogLevel::INFO, "Modified");
 			lastModifiedTime = currentModifiedTime;
 		}
 
