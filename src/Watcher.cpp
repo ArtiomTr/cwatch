@@ -5,7 +5,7 @@
 
 cwatch::Watcher::Watcher(std::string inputFilePath) : inputFilePath{ inputFilePath } {
 	std::filesystem::path filepath = std::filesystem::path(inputFilePath);
-	logger::assert(std::filesystem::exists(filepath), "Watcher initialization failed: File not found at path " + filepath.u8string());
+	logger::assert(std::filesystem::exists(filepath), "Watcher initialization failed: File not found at path \"" + filepath.u8string() + "\"");
 }
 
 void cwatch::Watcher::start() {

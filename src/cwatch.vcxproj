@@ -145,7 +145,6 @@
     <ClCompile Include="Watcher.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ansi_colors.h" />
     <ClInclude Include="log.h" />
     <ClInclude Include="Watcher.h" />
   </ItemGroup>
